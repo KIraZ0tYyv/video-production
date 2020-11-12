@@ -1,0 +1,685 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>Digital Media Foundations</title><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+svg[id^="mermaidChart"] { line-height: 1em; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+
+
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Source Sans Pro SemiBold'), local('SourceSansPro-SemiBold'), url('file:////home/user/.config/Typora/themes/vue/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlxdu.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}@import '';
+
+:root {
+    --side-bar-bg-color: #fff;
+    --control-text-color: #777;
+    --font-sans-serif: 'Ubuntu', 'Source Sans Pro', sans-serif !important;
+    --font-monospace: 'Fira Code', 'Roboto Mono', monospace !important;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-sans-serif);
+    color: #34495e;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6rem;
+    letter-spacing: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+#write {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 20px 30px 100px;
+}
+
+#write p {
+    line-height: 1.6rem;
+    word-spacing: .05rem;
+}
+
+#write ol li {
+    padding-left: 0.5rem;
+}
+
+#write > ul:first-child,
+#write > ol:first-child {
+    margin-top: 30px;
+}
+
+body > *:first-child {
+    margin-top: 0 !important;
+}
+
+body > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+a {
+    color: #42b983;
+    font-weight: 600;
+    padding: 0 2px;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+
+h1 tt,
+h1 code {
+    font-size: inherit !important;
+}
+
+h2 tt,
+h2 code {
+    font-size: inherit !important;
+}
+
+h3 tt,
+h3 code {
+    font-size: inherit !important;
+}
+
+h4 tt,
+h4 code {
+    font-size: inherit !important;
+}
+
+h5 tt,
+h5 code {
+    font-size: inherit !important;
+}
+
+h6 tt,
+h6 code {
+    font-size: inherit !important;
+}
+
+h2 a,
+h3 a {
+    color: #34495e;
+}
+
+h1 {
+    padding-bottom: .4rem;
+    font-size: 2.2rem;
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: 1.75rem;
+    line-height: 1.225;
+    margin: 35px 0 15px;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #ddd;
+}
+
+h3 {
+    font-size: 1.4rem;
+    line-height: 1.43;
+    margin: 20px 0 7px;
+}
+
+h4 {
+    font-size: 1.2rem;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: #777;
+}
+
+p,
+blockquote,
+ul,
+ol,
+dl,
+table {
+    margin: 0.8em 0;
+}
+
+li > ol,
+li > ul {
+    margin: 0 0;
+}
+
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+body > h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+body > h1:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+body > h3:first-child,
+body > h4:first-child,
+body > h5:first-child,
+body > h6:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+a:first-child h1,
+a:first-child h2,
+a:first-child h3,
+a:first-child h4,
+a:first-child h5,
+a:first-child h6 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+h1 p,
+h2 p,
+h3 p,
+h4 p,
+h5 p,
+h6 p {
+    margin-top: 0;
+}
+
+li p.first {
+    display: inline-block;
+}
+
+ul,
+ol {
+    padding-left: 30px;
+}
+
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+
+blockquote {
+    border-left: 4px solid #42b983;
+    padding: 10px 15px;
+    color: #777;
+    background-color: rgba(66, 185, 131, .1);
+}
+
+table {
+    padding: 0;
+    word-break: initial;
+}
+
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+
+table tr:nth-child(2n),
+thead {
+    background-color: #fafafa;
+}
+
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+
+table tr td {
+    border: 1px solid #dfe2e5;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+#write strong {
+    padding: 0 1px;
+}
+
+#write em {
+    padding: 0 5px 0 2px;
+}
+
+#write table thead th {
+    background-color: #f2f2f2;
+}
+
+#write .CodeMirror-gutters {
+    border-right: none;
+}
+
+#write .md-fences {
+    border: 1px solid #F4F4F4;
+    -webkit-font-smoothing: initial;
+    margin: 0.8rem 0 !important;
+    padding: 0.3rem 0 !important;
+    line-height: 1.43rem;
+    background-color: #F8F8F8 !important;
+    border-radius: 2px;
+    font-family: var(--font-monospace);
+    font-size: 0.85rem;
+    word-wrap: normal;
+}
+
+#write .CodeMirror-wrap .CodeMirror-code pre {
+    padding-left: 12px;
+}
+
+#write code, tt {
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-family: var(--font-monospace);
+    font-size: 0.92rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+}
+
+tt {
+    margin: 0 2px;
+}
+
+#write .md-footnote {
+    background-color: #f8f8f8;
+    color: #e96900;
+}
+
+/* heighlight. */
+#write mark {
+    background-color: #EBFFEB;
+    border-radius: 2px;
+    padding: 2px 4px;
+    margin: 0 2px;
+    color: #222;
+    font-weight: 500;
+}
+
+#write del {
+    padding: 1px 2px;
+}
+
+.cm-s-inner .cm-link,
+.cm-s-inner.cm-link {
+    color: #22a2c9;
+}
+
+.cm-s-inner .cm-string {
+    color: #22a2c9;
+}
+
+.md-task-list-item > input {
+    margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+    background-color: #f8f8f8;
+}
+
+#write pre.md-meta-block {
+    padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block > .code-tooltip {
+    bottom: .375rem;
+}
+
+#write > h3.md-focus:before {
+    left: -1.5625rem;
+    top: .375rem;
+}
+
+#write > h4.md-focus:before {
+    left: -1.5625rem;
+    top: .285714286rem;
+}
+
+#write > h5.md-focus:before {
+    left: -1.5625rem;
+    top: .285714286rem;
+}
+
+#write > h6.md-focus:before {
+    left: -1.5625rem;
+    top: .285714286rem;
+}
+
+.md-image > .md-meta {
+    border-radius: 3px;
+    font-family: var(--font-monospace);
+    padding: 2px 0 0 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: inherit;
+}
+
+.md-toc {
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#md-notification:before {
+    top: 10px;
+}
+
+/** focus mode */
+
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header,
+.context-menu,
+.megamenu-content,
+footer {
+    font-family: var(--font-sans-serif);
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state {
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+
+
+</style>
+</head>
+<body class='typora-export'>
+<div id='write'  class=''><hr /><h1><a name="digital-media-foundations" class="md-header-anchor"></a><span>Digital Media Foundations</span></h1><p><strong><span>Source</span></strong><span>: </span><a href='https://www.linkedin.com/learning/digital-media-foundations'><span>Digital Media Foundations (LinkedIn Learning)</span></a><span> by Maxim Jago</span></p><!-- MarkdownTOC --><ul><li><p><a href='#1-images'><span>1. Images</span></a></p><ul><li><a href='#11-pixels'><span>1.1. Pixels</span></a></li><li><a href='#12-brightness'><span>1.2. Brightness</span></a></li><li><a href='#13-bit-depth'><span>1.3. Bit depth</span></a></li><li><a href='#14-depth-of-field'><span>1.4. Depth of field</span></a></li></ul></li><li><p><a href='#2-color'><span>2. Color</span></a></p><ul><li><a href='#21-color-modes'><span>2.1. Color modes</span></a></li><li><a href='#22-rgb-mode'><span>2.2. RGB mode</span></a></li><li><a href='#23-yuv-mode'><span>2.3. YUV mode</span></a></li><li><a href='#24-rgb-vs-yuv'><span>2.4. RGB vs YUV</span></a></li><li><a href='#25-cmyk-mode'><span>2.5. CMYK mode</span></a></li><li><a href='#26-color-picker'><span>2.6. Color picker</span></a></li><li><a href='#27-alpha-channel'><span>2.7. Alpha channel</span></a></li><li><a href='#28-luma-key-and-chroma-key'><span>2.8. Luma key and chroma key</span></a></li><li><a href='#29-blend-modes'><span>2.9. Blend modes</span></a></li><li><a href='#210-vector-graphics'><span>2.10. Vector graphics</span></a></li></ul></li><li><p><a href='#3-screens'><span>3. Screens</span></a></p><ul><li><a href='#31-color-spacing'><span>3.1. Color spacing</span></a></li><li><a href='#32-high-dynamic-range'><span>3.2. High dynamic range</span></a></li><li><a href='#33-legal-levels'><span>3.3. Legal levels</span></a></li></ul></li><li><p><a href='#4-video'><span>4. Video</span></a></p><ul><li><a href='#41-pixel-aspect-ratio'><span>4.1. Pixel aspect ratio</span></a></li><li><a href='#42-frames-and-fields'><span>4.2. Frames and fields</span></a></li><li><a href='#43-frame-size'><span>4.3. Frame size</span></a></li><li><a href='#44-frame-rate'><span>4.4. Frame rate</span></a></li><li><a href='#45-timecode'><span>4.5. Timecode</span></a></li><li><a href='#46-drop-frame-timecode'><span>4.6. Drop frame timecode</span></a></li><li><a href='#47-refresh-rate'><span>4.7. Refresh rate</span></a></li></ul></li><li><p><a href='#5-codecs'><span>5. Codecs</span></a></p><ul><li><a href='#51-codecs'><span>5.1. Codecs</span></a></li><li><a href='#52-human-perception'><span>5.2. Human perception</span></a></li><li><a href='#53-file-types-and-media-formats'><span>5.3. File types and media formats</span></a></li></ul></li><li><p><a href='#6-color-grading'><span>6. Color grading</span></a></p><ul><li><a href='#61-color-wheel'><span>6.1. Color wheel</span></a></li><li><a href='#62-vectorscope'><span>6.2. Vectorscope</span></a></li><li><a href='#63-waveforms'><span>6.3. Waveforms</span></a></li><li><a href='#64-histograms'><span>6.4. Histograms</span></a></li><li><a href='#65-curves'><span>6.5. Curves</span></a></li><li><a href='#66-levels'><span>6.6. Levels</span></a></li></ul></li></ul><!-- /MarkdownTOC --><hr /><h2><a name="1-images" class="md-header-anchor"></a><span>1. Images</span></h2><h3><a name="11-pixels" class="md-header-anchor"></a><span>1.1. Pixels</span></h3><p><span>Every image consists of large number of </span><strong><span>pixels (picture elements)</span></strong><span>. When we make adjustments to visual elements of a picture using some software, we&#39;re actually adjusting </span><em><span>pixels</span></em><span> and nothing else. Each </span><em><span>pixel</span></em><span> has values associated with it, e.g., </span><em><span>aspect ratio</span></em><span>, </span><em><span>color values</span></em><span>, </span><em><span>position</span></em><span> (from the top-left corner).</span></p><p style="text-align:center;"><img src="data/pixel.png" width="450" title="pixel"></p><h3><a name="12-brightness" class="md-header-anchor"></a><span>1.2. Brightness</span></h3><p><span>The simplest way to record brightness data from a camera is to set the lightest and darkest pixels of an image as 100% and 0% brightness, and pixels between them as pixels with some value of brightness between 0% and 100%.</span></p><ul><li><span>usually the brightest parts of a picture are gleaming car windscreens, chrome catching the sunlight, reflections in glass, etc. (it&#39;s acceptable for these parts to burn out, i.e., have no detail in them)</span></li><li><span>human perception of brightness is relative and our brain adapts quickly to the levels of an image (e.g., we can see shadows, even if the image isn&#39;t dark at all)</span></li><li><span>displays vary a lot in how they show images, but to make sure the image is accurately represented we only need the relative brightness match the original</span></li></ul><h3><a name="13-bit-depth" class="md-header-anchor"></a><span>1.3. Bit depth</span></h3><p><strong><span>Bit depth</span></strong><span> is a number of bits used per channel of a pixel (brightness or color).</span></p><ul><li><span>8 bits: </span><code>0 - 255</code><span> scale</span></li><li><span>more bits means more subtle gradient between light and dark</span></li><li><span>more bits means more storage space and more processing resources will be used</span></li></ul><p style="text-align:center;"><img src="data/bit depth.png" width="600" title="bit depth"></p><p><span>There are different ways to represent the color of a pixel, but they all use the concept of </span><strong><span>color channels</span></strong><span>. For example, </span><strong><span>RGB mode</span></strong><span> uses </span><em><span>red</span></em><span>, </span><em><span>green</span></em><span> and </span><em><span>blue</span></em><span> channels (i.e., for 8-bit image each pixel stores 24 bits of data).</span></p><ul><li><span>there are different standards that define the amount of red that can be called fully red (e.g., sRGB or DCI P3)</span></li><li><span>total number of colors that can be created with 8-bit </span><em><span>bit depth</span></em><span> in RGB mode is </span><code>256 ∙ 256 ∙ 256 = 16,777,216</code><span> (more than the human eye can see)</span></li><li><span>when working with effects, higher </span><em><span>bit depth</span></em><span> means less errors</span></li></ul><h3><a name="14-depth-of-field" class="md-header-anchor"></a><span>1.4. Depth of field</span></h3><p><span>For every camera there is a minimum grain size for its photo sensor (e.g., for digital camera it&#39;s the size of a single photoreceptor). When a single point of light lands perfectly within a photoreceptor, it&#39;s in focus, when it doesn&#39;t, it&#39;s not. So the size of camera photoreceptors defines exactly how sharp the images can get (</span><strong><span>depth of field</span></strong><span>).</span></p><p style="text-align:center;"><img src="data/camera sensor.png" width="500" title="camera sensor"></p><ul><li><span>When you open up the lens by using a lower F-Stop or T-Stop you widen the area the light is shone onto on the sensor. Truly in-focus items will still look in focus, but the items that were only effectively in focus will begin to smudge over into other photoreceptors (out of focus).</span></li><li><span>When you close up the lens with a higher F-Stop or T-Stop you&#39;re making the hole smaller, so there&#39;s less scattering. The image seems sharper over a greater range of distances from the camera. You&#39;ll also need more light because there&#39;s less coming through the lens.</span></li><li><span>Only a small amount of the picture is ever really perfectly in focus. It&#39;s just that there&#39;s a range of focus that&#39;s greater than the sharpness of the sensor. </span></li></ul><hr /><h2><a name="2-color" class="md-header-anchor"></a><span>2. Color</span></h2><h3><a name="21-color-modes" class="md-header-anchor"></a><span>2.1. Color modes</span></h3><p><span>There is a long chain of systems that image data need to go through before it&#39;s displayed on a monitor (or on any other device): capture image data, record this information and store it.</span></p><ul><li><span>there are many different </span><strong><span>color systems/spaces/modes</span></strong><span>, e.g., RGB, YUV, CMYK</span></li><li><span>cameras can&#39;t capture all the colors human eyes can see, they register just enough for people not to notice the difference</span></li><li><span>manufacturers try to align the recording and displaying color channels as much as possible, and professional editors use carefully-calibrated monitors</span></li><li><span>some people like to work with a larger range of colors (when the delivered media will have a smaller range), and some prefer the smaller range to be sure everything&#39;s going to fit well</span></li></ul><h3><a name="22-rgb-mode" class="md-header-anchor"></a><span>2.2. RGB mode</span></h3><p><span>Most digital screens use </span><strong><span>RGB</span></strong><span> system: colors are created by combining the glow of red, green and blue pixels (</span><em><span>additive color</span></em><span>).</span></p><p style="text-align:center;"><img src="data/display pixels.png" width="300" title="display"></p><ul><li><span>gray is created by having an equal amount of all three colors</span></li><li><span>blue with green makes </span><em><span>cyan</span></em><span>, and red with blue makes </span><em><span>magenta</span></em><span>, green with red makes </span><em><span>yellow</span></em></li><li><span>there are different ways of describing the relationships between the colors graphically, e.g., the </span><em><span>color wheel</span></em></li><li><span>8-bit images can produce more distinct colors than the human eye can perceive</span></li><li><span>due to limitations of cameras and screens, manufacturers settled on maximum levels of red, green, and blue that could be reproduced reasonably well on a calibrated display</span></li><li><strong><span>sRGB</span></strong><span> is a particular kind of RGB, with limits that work well for screens</span></li></ul><p style="text-align:center;"><img src="data/RGB.png" width="700" title="RGB"></p><h3><a name="23-yuv-mode" class="md-header-anchor"></a><span>2.3. YUV mode</span></h3><p><strong><span>YUV</span></strong><span> system is based on </span><strong><span>YcBcR</span></strong><span> with channels for </span><em><span>luma</span></em><span> (light), </span><em><span>blue</span></em><span> and </span><em><span>red</span></em><span> (YUV just uses specific UV scale for color channels). It&#39;s mostly used in cameras and regular TVs.</span></p><ul><li><span>YUV system is similar to how human vision works (eyes are much better at detecting luminance than detecting color, so most recording systems skip color information for at least half of the pixels in an image)</span></li><li><span>YUV is an efficient system: when transmitting an analog signal, the more you break the signal into it&#39;s component parts, the less cross signal interference you get</span></li><li><span>more information stored with less data than RGB</span></li><li><span>there are different kinds of YUV for different video systems</span></li></ul><h3><a name="24-rgb-vs-yuv" class="md-header-anchor"></a><span>2.4. RGB vs YUV</span></h3><ul><li><p><span>YUV has a smaller range of colors compared to RGB (</span><code>16 - 235</code><span> vs </span><code>0 - 255</code><span>), so:</span></p><ol start='' ><li><span>when RGB signal is displayed on a regular TV, very bright details, like clouds in the sky, could easily be chopped off </span></li><li><span>when YUV image is displayed on a computer monitor, the bright highlights will look a little dull, while the black shadows will look a little gray</span></li></ol></li><li><p><span>professional grading artists have each kind of screen available to check the image on all of them, and it&#39;s common for major films to be produced in different versions for different forms of distribution</span></p></li></ul><p style="text-align:center;"><img src="data/RGB vs YUV.png" width="250" title="RGB vs YUV"></p><h3><a name="25-cmyk-mode" class="md-header-anchor"></a><span>2.5. CMYK mode</span></h3><p><strong><span>CMYK</span></strong><span> mode uses </span><em><span>cyan</span></em><span>, </span><em><span>magenta</span></em><span>, </span><em><span>yellow</span></em><span> and </span><em><span>black</span></em><span> color channels. It&#39;s utilized by printers, since they use </span><em><span>subtractive color</span></em><span>, i.e., the paper&#39;s white &quot;contains&quot; all colors, so selectively hiding the colors we don&#39;t want reveals the ones we do (analogy: light color filters).</span></p><ul><li><span>there&#39;s a </span><em><span>black</span></em><span> ink in addition to </span><em><span>cyan</span></em><span>, </span><em><span>magenta</span></em><span> and </span><em><span>yellow</span></em><span>, because clean black couldn&#39;t be achieved by combining colored inks</span></li><li><span>RGB and CMYK don&#39;t perfectly translate into each other</span></li></ul><p style="text-align:center;"><img src="data/CMYK.png" width="200" title="CMYK"></p><h3><a name="26-color-picker" class="md-header-anchor"></a><span>2.6. Color picker</span></h3><p><span>There are many approaches to choosing a color, standard </span><strong><span>color picker</span></strong><span> gives these options:</span></p><ul><li><span>vertical strip of </span><em><span>hues</span></em><span> (color tones) and large square for choosing </span><em><span>color intensity</span></em><span> (</span><em><span>saturation</span></em><span>) and </span><em><span>lightness</span></em><span> (</span><em><span>luminance</span></em><span>)</span></li><li><em><span>gamut</span></em><span> (color range) warnings for print and web (there are specific sets of colors used for web design and printing)</span></li><li><em><span>color code</span></em><span> (set of 6 HEX numbers to identify a color)</span></li><li><span>RGB, CMYK and HSB (</span><em><span>hue angle</span></em><span>, </span><em><span>saturation</span></em><span>, and </span><em><span>brightness</span></em><span>) systems</span></li><li><span>LAB system (</span><em><span>lightness</span></em><span>, and two color axis), similar to YUV</span></li></ul><p style="text-align:center;"><img src="data/color picker.png" width="450" title="color picker"></p><h3><a name="27-alpha-channel" class="md-header-anchor"></a><span>2.7. Alpha channel</span></h3><p><span>Another channel that stores important information about pixels is </span><strong><span>alpha channel</span></strong><span>, it records how </span><em><span>transparent</span></em><span> (or </span><em><span>opaque</span></em><span>) pixels are.</span></p><ul><li><em><span>alpha</span></em><span> channel uses the same </span><em><span>bit depth</span></em><span> as the color channels</span></li><li><span>when </span><em><span>alpha</span></em><span> channel level is reduced, the colors will stay the same, but what&#39;s behind the pixels will show through (e.g., most video editing timelines are black in the background, so reducing the </span><em><span>alpha</span></em><span> channel, will make the image darker)</span></li><li><em><span>transparency grid</span></em><span> (grid of checkered squares) could be displayed in areas where the image would be transparent</span></li><li><em><span>alpha</span></em><span> channel can be adjusted manually or automatically (based on the color or brightness of the pixels) and is useful for effects and editing</span></li></ul><p style="text-align:center;"><img src="data/alpha.png" width="150" title="alpha"></p><h3><a name="28-luma-key-and-chroma-key" class="md-header-anchor"></a><span>2.8. Luma key and chroma key</span></h3><p><span>The area of an image that should be transparent can be designated manually with a </span><em><span>mask</span></em><span> or automatically with </span><strong><span>luma key</span></strong><span> (based on luminance) or </span><strong><span>chroma key</span></strong><span> (based on color).</span></p><ol start='' ><li><p><strong><span>Luma key</span></strong></p><ul><li><span>converts the </span><em><span>luminance</span></em><span> of pixels to </span><em><span>alpha</span></em><span> channel</span></li><li><span>by default only pixels that are perfectly black will be completely transparent, and the brighter the pixel is, the more opaque it&#39;s gonna be</span></li><li><span>for cleaner results minimum and maximum </span><em><span>luminance</span></em><span> can be specified (at what limits pixels become completely transparent and opaque)</span></li></ul></li><li><p><strong><span>Chroma key</span></strong></p><ul><li><em><span>alpha</span></em><span> channel is changed if pixel is close to a particular color (often green)</span></li><li><span>any pixel that perfectly matches the selected color will become completely transparent, and the more pixel vary from the selected color, the higher its </span><em><span>alpha</span></em><span> channel value and more opaque it will become</span></li><li><span>minimum and maximum limits can be set for cleaner results</span></li><li><em><span>chroma key</span></em><span> can be also applied to specific regions (with the help of </span><em><span>masks</span></em><span>)</span></li></ul></li></ol><p><span>There are a number of other </span><em><span>keys</span></em><span> for adjusting alpha channel, e.g., </span><em><span>track matte</span></em><span> and </span><em><span>garbage matte</span></em><span>.</span></p><h3><a name="29-blend-modes" class="md-header-anchor"></a><span>2.9. Blend modes</span></h3><p><span>When the opacity of a pixel is changed, the pixel behind it becomes visible, so the colors and luminance of these pixels are combined. </span><strong><span>Blend modes</span></strong><span> are just different mathematical ways of doing it.</span></p><ul><li><span>by default the color value of the background pixel is determined by the alpha channel of the foreground pixel</span></li><li><span>in </span><em><span>lighten mode</span></em><span> when choosing between foreground and background pixels only the brightest ones are displayed</span></li><li><span>in </span><em><span>darken mode</span></em><span> when choosing between foreground and background pixels only the darkest ones are displayed</span></li><li><span>there are many other </span><em><span>blend modes</span></em></li></ul><p style="text-align:center;"><img src="data/blendig modes.png" width="800" title="blending modes"></p><h3><a name="210-vector-graphics" class="md-header-anchor"></a><span>2.10. Vector graphics</span></h3><p><span>The are two main ways of storing image data:</span></p><ol start='' ><li><p><strong><span>Bitmap (rasterized)</span></strong></p><ul><li><span>image is just a set of pixels with a particular color and light values</span></li></ul></li><li><p><strong><span>Vector graphics</span></strong></p><ul><li><span>uses mathematically defined shapes and curves to specify what&#39;s drawn on an image</span></li><li><span>can be resized without loss of quality</span></li><li><span>used in design work (but is not a good solution for fine detail work like editing photos)</span></li></ul></li></ol><p style="text-align:center;"><img src="data/bitmap vs vector.png" width="400" title="bitmap vs vector"></p><hr /><h2><a name="3-screens" class="md-header-anchor"></a><span>3. Screens</span></h2><h3><a name="31-color-spacing" class="md-header-anchor"></a><span>3.1. Color spacing</span></h3><p><span>Since the color perception of human eyes is not that good, much of the color information of an image can be discarded (</span><strong><span>color spacing</span></strong><span>, or </span><strong><span>color subsampling</span></strong><span>).</span></p><ul><li><p><em><span>color spacing</span></em><span> allows to store less data without noticing the difference</span></p></li><li><p><em><span>color spacing</span></em><span> is implemented by dividing an image into many tuples with several pixels in each, and it can be indicated using three numbers:</span></p><ol start='' ><li><span>number </span><code>N</code><span> of pixels in a tuple</span></li><li><span>every </span><code>n</code><span>-th pixel in odd rows tuples has color</span></li><li><span>every </span><code>m</code><span>-th pixel in even rows tuples has color</span></li></ol></li><li><p><span>if all numbers are the same, then there is no </span><em><span>color spacing</span></em></p></li><li><p><em><span>color spacing</span></em><span> can have negative effect if it&#39;s used before </span><em><span>chroma key</span></em><span> (since some pixels are not gonna have color information)</span></p></li></ul><p style="text-align:center;"><img src="data/color spacing.png" width="700" title="color spacing"></p><h3><a name="32-high-dynamic-range" class="md-header-anchor"></a><span>3.2. High dynamic range</span></h3><p><strong><span>Contrast ratio</span></strong><span> is a the difference between maximum and minimum brightness a specific display can produce.</span></p><ul><li><span>but </span><em><span>nits</span></em><span> (or </span><em><span>candelas per square meter</span></em><span>) are more useful units of measurement for the maximum amount of light a display can produce</span></li><li><span>most consumer displays can produce up to </span><code>200 nits</code></li><li><strong><span>HDR (high dynamic range)</span></strong><span> displays can produce up to </span><code>2,000 nits</code><span> for consumer displays, and even </span><code>10,000 nits</code><span> for large outdoor screens</span></li></ul><h3><a name="33-legal-levels" class="md-header-anchor"></a><span>3.3. Legal levels</span></h3><p><span>There are many technical standards set by ITU (</span><em><span>international telecommunication union</span></em><span>) that define allowed characteristics for video broadcasts (e.g., upper and lower bounds for brightness level).</span></p><ul><li><p><span>rules for </span><em><span>internet-delivered</span></em><span> videos are very broad</span></p></li><li><p><span>there are three common standards for TV broadcasts: </span><code>ITU 601</code><span>, </span><code>ITU 709</code><span>, and </span><code>ITU 2020</code><span> (sometimes refered to as </span><code>Rec.601</code><span> etc.):</span></p><ul><li><code>ITU 601</code><span> is for standard definition broadcast video</span></li><li><code>ITU 709</code><span> is for HD</span></li><li><code>ITU 2020</code><span> is for ultra HD</span></li></ul></li><li><p><span>it&#39;s important to keep these standards in mind during production and post-production</span></p></li></ul><hr /><h2><a name="4-video" class="md-header-anchor"></a><span>4. Video</span></h2><h3><a name="41-pixel-aspect-ratio" class="md-header-anchor"></a><span>4.1. Pixel aspect ratio</span></h3><p><span>In graphic design applications, most commonly, pixels have square shape, but when working with video, it&#39;s not always the case. The shape of a pixel is often expressed as a ratio, e.g., </span><code>1:1</code><span> is a square. </span></p><ul><li><code>16:9 NTSC SD</code><span> video has widescreen pixels, which are </span><code>1.21:1</code><span> wide</span></li><li><span>most </span><code>HD</code><span> standards use square pixels</span></li><li><code>DVC Pro HD</code><span> has a </span><code>1.5:1</code><span> </span><em><span>pixel aspect ratio</span></em><span>, and some </span><em><span>full anamorphic</span></em><span> systems (picture is squashed horizontally in the camera and then stretched back on playback) use </span><code>2:1</code><span> ratio</span></li></ul><h3><a name="42-frames-and-fields" class="md-header-anchor"></a><span>4.2. Frames and fields</span></h3><p><strong><span>Frame</span></strong><span> is a single image from a continuous series, displayed sequencially to create an illusion of movement.</span></p><p><span>A single frame of video is just an image, but it can be recorded in different ways, e.g., like ordinary pictures, or by storing the differences between frames. Two most common ways:</span></p><ol start='' ><li><p><strong><span>Progressive</span></strong></p><ul><li><span>frames are regular images</span></li><li><span>denoted by letter </span><code>p</code><span> after the frame rate</span></li></ul></li><li><p><strong><span>Interlaced</span></strong></p><ul><li><span>frames are captured at double rate (compared to </span><em><span>progressive</span></em><span>), but each frame contains only half of the image (i.e., only odd or even lines)</span></li><li><span>motion appears to be smoother, particularly when the camera pans or tilts</span></li><li><span>one set of lines (even or odd) is referred to as a </span><em><span>field</span></em><span>, and the order in which the </span><em><span>fields</span></em><span> are recorded can vary from system to system (so interlaced video is described as </span><em><span>upper (odd) field first</span></em><span> or </span><em><span>lower (even) field first</span></em><span>)</span></li><li><span>if </span><em><span>fields</span></em><span> are played in the wrong order video will appear staggering</span></li><li><span>denoted by letter </span><code>i</code><span> after the frame rate</span></li></ul></li></ol><p style="text-align:center;"><img src="data/interlaced vs progressive.png" width="800" title="interlaced vs progressive"></p><h3><a name="43-frame-size" class="md-header-anchor"></a><span>4.3. Frame size</span></h3><p><span>There are two common conventions for </span><em><span>frame sizes</span></em><span>. One is used for consumer and professional HD video (named according to its vertical resolution, e.g., </span><code>1080p</code><span> or </span><code>1080i</code><span>), and the other for digital cinema projection (named according to its horizontal resolution, e.g., </span><code>4K</code><span>).</span></p><figure><table><thead><tr><th><span>name</span></th><th><span>resolution</span></th></tr></thead><tbody><tr><td><span>HD</span></td><td><code>1,280 x 720</code></td></tr><tr><td><span>full HD</span></td><td><code>1,920 x 1,080</code></td></tr><tr><td><span>ultra HD</span></td><td><code>3,840 x 2,160</code><span> and </span><code>7,680 x 4,320</code></td></tr><tr><td><strong><span>name</span></strong></td><td><strong><span>resolution</span></strong></td></tr><tr><td><span>2K</span></td><td><code>2,048 x 1,080</code></td></tr><tr><td><span>4K</span></td><td><code>4,096 x 2,160</code></td></tr><tr><td><span>8K</span></td><td><code>8,192 x 4,320</code></td></tr></tbody></table></figure><p><span>And as with almost all media production, the key is to plan backwards (i.e., know in advance the resolution you are delivering).</span></p><p style="text-align:center;"><img src="data/frame sizes.png" width="500" title="frame sizes"></p><h3><a name="44-frame-rate" class="md-header-anchor"></a><span>4.4. Frame rate</span></h3><p><span>Frame rate is measured in </span><em><span>frames per second</span></em><span> (applies to recording, editing, and playback).</span></p><ul><li><span>To create an illusion of movement </span><code>15 fps</code><span> is enough, and </span><code>22 fps</code><span> will make motion seem continuous (</span><code>24 fps</code><span> was used as a standard just to be on the safe side).</span></li><li><span>In the early years of cinema, slow motion effects were achieved by capturing more frames per second than would be played (</span><em><span>over-cranking</span></em><span>). Same method is used today.</span></li></ul><p style="text-align:center;"><img src="data/overcranking.png" width="400" title="over-cranking"></p><ul><li><span>When video cameras came along, couple of different </span><em><span>frame rate</span></em><span> standards appeared. Depending on the frequency of AC used in a particular geographical region it was either </span><code>50</code><span> or </span><code>60</code><span> </span><em><span>fields per second</span></em><span> (corresponding to </span><code>50 Hz</code><span> or </span><code>60 Hz</code><span> AC).</span></li><li><span>The higher the playback </span><em><span>frame rate</span></em><span>, the more fluid movement will appear (but there is a limit the human eye can perceive).</span></li><li><span>The limiting factor is always the playback: footage is better be recorded in multiples of the expected playback </span><em><span>frame rate</span></em><span> (to avoid complications). So modern cameras can usually record double the </span><em><span>frame rate</span></em><span> to achieve this effect (commonly used by filmmakers).</span></li></ul><h3><a name="45-timecode" class="md-header-anchor"></a><span>4.5. Timecode</span></h3><p><span>When celluloid was the most popular medium in video recording, two main methods of measuring time were used: counting number of frames (still used today in animation production), and using pre-printed burnt into the edge of the film numbers (complicated solution).</span></p><p><span>When video technology came along, a new system was introduced: </span><strong><span>timecode</span></strong><span>.</span></p><ul><li><span>for every frame </span><em><span>timecode</span></em><span> stores four numbers separated by colons (or semicolons): </span><em><span>hour</span></em><span>, </span><em><span>minute</span></em><span>, </span><em><span>second</span></em><span> and </span><em><span>frame number</span></em></li><li><span>because the </span><em><span>frame rate</span></em><span> of a footage can vary, the number of frames displayed in the last position might be different from one piece to the next</span></li><li><em><span>timecode</span></em><span> is also used for audio (where instead of </span><em><span>frames</span></em><span> it shows </span><em><span>samples</span></em><span>) and a number of other industrial technologies</span></li></ul><p style="text-align:center;"><img src="data/timecode.png" width="300" title="timecode"></p><h3><a name="46-drop-frame-timecode" class="md-header-anchor"></a><span>4.6. Drop frame timecode</span></h3><p><span>When NTSC (</span><em><span>national television standards committee</span></em><span>) standard was introduced there were some technical difficulties (back compatibility with black and white television) which led to the change of broadcast </span><em><span>frame rate</span></em><span> from </span><code>30 fps</code><span> to </span><code>29.97 fps</code><span>.</span></p><ul><li><span>when </span><code>29.97 fps</code><span> footage is recorded, camera actually captures it at </span><code>30 fps</code><span> but with a special kind of </span><em><span>timecode</span></em><span> that </span><a href='https://www.3playmedia.com/2019/04/18/drop-frame-non-drop-frame-affects-captions-subtitles/'><span>automatically drops some frames</span></a><span> when the footage is broadcast</span></li><li><em><span>drop frame (DF) timecode</span></em><span> is denoted with a </span><code>;</code><span>, and </span><em><span>non-drop frame (NDF) timecode</span></em><span> with a </span><code>:</code></li><li><em><span>DF timecode</span></em><span> is used only for broadcast, and if the footage is intended for the web, </span><em><span>NDF timecode</span></em><span> is used instead</span></li><li><span>PAL (</span><em><span>phase alternating line</span></em><span>) didn&#39;t have the same problem, so it uses only </span><em><span>NDF timecode</span></em></li><li><span>when new </span><em><span>frame rates</span></em><span> became available for video, the drop frame rule still applied (the playback speed will be slowed for broadcast by 1%, e.g., </span><code>24 fps</code><span> becomes </span><code>23.976 fps</code><span> during the playback)</span></li></ul><h3><a name="47-refresh-rate" class="md-header-anchor"></a><span>4.7. Refresh rate</span></h3><p><span>Factors that can affect the </span><em><span>refresh rate</span></em><span> of a video displayed on a screen (or projector):</span></p><ol start='' ><li><p><strong><span>refresh rate of the lamp in the screen</span></strong></p><ul><li><span>usually is much higher than the </span><em><span>refresh rate</span></em><span> of the screen, e.g., typically </span><code>200 Hz</code></li></ul></li><li><p><strong><span>refresh rate of the screen</span></strong></p><ul><li><span>usually </span><code>60 Hz</code><span> for NTSC, and </span><code>50 Hz</code><span> for PAL</span></li><li><span>faster </span><em><span>refresh rates</span></em><span> can be advantageous for video games, but won&#39;t do much for all the other media (e.g., </span><code>120 Hz</code><span> TV will just repeat every frame several times)</span></li></ul></li><li><p><strong><span>frame rate of the video</span></strong></p><ul><li><span>usually </span><code>29.97 fps</code><span> for NTSC, and </span><code>25 fps</code><span> for PAL</span></li><li><span>if </span><code>24 fps</code><span> is used it doesn&#39;t matter if it&#39;s NTSC or PAL</span></li><li><span>occasionally, feature films are recorded with </span><code>48 fps</code><span>; it improves the appearance of movement and the clarity of the image, but some audience members complain that this looks too smooth (&quot;not movie-like&quot;)</span></li></ul></li></ol><hr /><h2><a name="5-codecs" class="md-header-anchor"></a><span>5. Codecs</span></h2><h3><a name="51-codecs" class="md-header-anchor"></a><span>5.1. Codecs</span></h3><p><strong><span>Codec</span></strong><span> is a software for compressing and decomressing media files.</span></p><ul><li><p><em><span>codecs</span></em><span> allow to store media in smaller files, while retaining most of the perceived quality</span></p></li><li><p><span>without compression video files would be enormous, e.g., for standard 8-bit 24 fps full HD video that&#39;s </span><code>1,920 ∙ 1,080 ∙ 3 ∙ 8 ∙ 24 ≈ 1.2 Gb</code><span> for every second of a video</span></p></li><li><p><span>to play or view the media that&#39;s been compressed with a particular </span><em><span>codec</span></em><span>, it needs to be installed on a device</span></p></li><li><p><span>considerations when choosing which </span><em><span>codec</span></em><span> to use:</span></p><ul><li><span>newer codecs are often better (new technologies)</span></li><li><span>license fee (not all codecs are free to use)</span></li><li><span>house standard (large organization can use a particular standard because of technical, legal or financial reasons)</span></li></ul></li><li><p><span>there are many settings to consider when choosing a particular </span><em><span>codec</span></em><span>, i.e., frame rate, frame size, maximum file size, data rate (bits used per second of a video), etc.</span></p></li></ul><h3><a name="52-human-perception" class="md-header-anchor"></a><span>5.2. Human perception</span></h3><p><span>Human perception of light and sound is far from precise and have its own peculiarities, but it&#39;s an ultimate measure of color, light and sound quality.</span></p><ul><li><p><span>all human senses are logarithmic (non-linear), e.g., human brain perceives gray color with 18% bightness as neutral</span></p><p style="text-align:center;"><img src="data/brightness perception.png" width="450" title="brightness perception"></p></li><li><p><span>colors are perceived relative to their surroundings (reason for many optical illusions)</span></p><p style="text-align:center;"><img src="data/color perception.png" width="300" title="color perception"></p></li><li><p><span>order of audience sensitivity to the quality of different media: </span><em><span>audio</span></em><span> first, then </span><em><span>luminance</span></em><span>, and lastly </span><em><span>color</span></em><span> (but what matters most is the story)</span></p></li><li><p><span>consistency of media quality is even more important, e.g., it&#39;s better to degrade the quality of some footage to make it consistent across all video (to reduce distractions for audience)</span></p></li></ul><h3><a name="53-file-types-and-media-formats" class="md-header-anchor"></a><span>5.3. File types and media formats</span></h3><p><span>Media compressed with a particular </span><em><span>codec</span></em><span> can be stored using different </span><strong><span>file types</span></strong><span>.</span></p><ul><li><span>not every </span><em><span>codec</span></em><span> can be contained in every media </span><em><span>file type</span></em><span>, i.e., each </span><em><span>file type</span></em><span> has a limited list of supported </span><em><span>codecs</span></em><span> </span></li><li><span>media files also support a range of </span><em><span>metadata</span></em><span> entries</span></li><li><span>video </span><em><span>file types</span></em><span> like </span><code>.mov</code><span>, </span><code>.avi</code><span>, </span><code>.mxf</code><span>, etc. are sometimes called </span><em><span>containers</span></em><span> or </span><em><span>wrappers</span></em><span> (and sometimes these files can be rewrapped without modifying the media stored inside a codec)</span></li><li><span>a </span><strong><span>media format</span></strong><span> is a set of specification for a media (e.g., frame rate, frame size, pixel aspect ratio)</span></li><li><em><span>media formats</span></em><span> don&#39;t need to include a particular </span><em><span>file type</span></em><span> or </span><em><span>codec</span></em><span> (e.g., HD and NTSC are video </span><em><span>formats</span></em><span>), but terms </span><em><span>file format</span></em><span> and </span><em><span>file type</span></em><span> are often used interchangeably (which is technically incorrect)</span></li><li><span>all </span><em><span>delivery specifications</span></em><span> for a media should be considered during pre-production</span></li></ul><hr /><h2><a name="6-color-grading" class="md-header-anchor"></a><span>6. Color grading</span></h2><h3><a name="61-color-wheel" class="md-header-anchor"></a><span>6.1. Color wheel</span></h3><p><strong><span>Color wheel</span></strong><span> is a color grading tool used to adjust the color of an image.</span></p><ul><li><span>adjustments are made by moving the control puck from the center of the wheel</span></li><li><em><span>color wheel</span></em><span> is commonly divided into three separate wheels, for adjusting </span><em><span>shadows</span></em><span>, </span><em><span>midtones</span></em><span>, and </span><em><span>highlights</span></em><span> (or </span><em><span>lift</span></em><span>, </span><em><span>gamma</span></em><span>, and </span><em><span>gain</span></em><span>)</span></li><li><span>what&#39;s considered </span><em><span>shadows</span></em><span>, </span><em><span>midtones</span></em><span> and </span><em><span>highlights</span></em><span> is arbitrary and can be configured manually</span></li><li><span>human vision treats colors for </span><em><span>shadows</span></em><span>, </span><em><span>midtones</span></em><span>, and </span><em><span>highlights</span></em><span> slightly differently, e.g., eyes need more light to see color than to see luminance (that&#39;s why everything looks colorless in the dark, so </span><em><span>color casts</span></em><span> in </span><em><span>shadows</span></em><span> should be resolved, if the goal is natural appearance)</span></li><li><em><span>color wheels</span></em><span> are often accompanied by the luminance level knobs</span></li></ul><p style="text-align:center;"><img src="data/color wheel.png" width="600" title="color wheel"></p><h3><a name="62-vectorscope" class="md-header-anchor"></a><span>6.2. Vectorscope</span></h3><p><strong><span>Vectorscope</span></strong><span> is a graph, that gives an overall indication of color </span><em><span>saturation</span></em><span> in a shot, and whether there&#39;s a </span><em><span>color cast</span></em><span>.</span></p><ul><li><span>there are different kinds of </span><em><span>vectorscopes</span></em><span>, e.g., a film grading style HSL scope (</span><em><span>hue</span></em><span>, </span><em><span>saturation</span></em><span>, and </span><em><span>luminance</span></em><span>), or standard YUV scope</span></li><li><em><span>vectorscope</span></em><span> has </span><code>R</code><span>, </span><code>G</code><span>, </span><code>B</code><span>, </span><code>Mg</code><span>, </span><code>Yl</code><span>, and </span><code>Cy</code><span> markings to indicate the spots for colors (each of these locations have two boxes, one for RGB, one for YUV scale)</span></li><li><span>the center of the scope represents no color saturation</span></li></ul><p style="text-align:center;"><img src="data/vectorscope.png" width="600" title="vectorscope"></p><h3><a name="63-waveforms" class="md-header-anchor"></a><span>6.3. Waveforms</span></h3><p><strong><span>Waveform</span></strong><span> graph is used to show both the total composite color level and the brightness of an image. It gives guidance when choosing the levels of a footage.</span></p><ul><li><span>in </span><em><span>waveform graph</span></em><span> horizontal axis corresponds to horizontal coordinates of pixels, and vertical axis shows the </span><em><span>luminance</span></em><span> (or </span><em><span>saturation</span></em><span>) distribution for the lines of pixels</span></li><li><span>if the picture is dark, most of the luminance </span><em><span>waveform</span></em><span> will be concentrated at the bottom of the graph, and if it&#39;s bright, at the top of the graph</span></li></ul><p style="text-align:center;"><img src="data/waveform dark pixel.png" width="600" title="waveform"></p><ul><li><span>vertical axis can use different scales, e.g., NTSC IRE scale, or PAL millivolt scale</span></li><li><span>it&#39;s important to have a display, that matches the final output</span></li><li><strong><span>RGB parade</span></strong><span> is just a set of three separate </span><em><span>waveform</span></em><span> graphs for red, green, and blue colors (gives more information than usual </span><em><span>waveforms</span></em><span>); it&#39;s useful for fixing </span><em><span>color casts</span></em><span> (watching the graph, while adjusting the </span><em><span>temperature</span></em><span> control)</span></li></ul><p style="text-align:center;"><img src="data/RGB parade.png" width="600" title="RGB parade"></p><h3><a name="64-histograms" class="md-header-anchor"></a><span>6.4. Histograms</span></h3><p><strong><span>Histograms</span></strong><span> are just another way to gauge the amount of light and color in an image (or more precisely, plot their distributions).</span></p><ul><li><span>usually plotted for six main colors</span></li><li><span>great for getting a sense of the overall </span><em><span>contrast ratio</span></em><span> of an image (and see problems with the distribution of light levels)</span></li><li><span>similar to </span><em><span>waveforms</span></em><span>, but gives less nuanced display of information</span></li><li><em><span>histograms</span></em><span> also help to spot </span><em><span>color casts</span></em><span> and other color issues</span></li></ul><p style="text-align:center;"><img src="data/color histogram.png" width="450" title="histogram"></p><h3><a name="65-curves" class="md-header-anchor"></a><span>6.5. Curves</span></h3><p><strong><span>Curves</span></strong><span> are a tool for natural and precise adjustments of color and luminance.</span></p><ul><li><p><em><span>curves</span></em><span> graph represents input-output graph for a particular channel </span></p></li><li><p><span>horizontal axis can be thought of as consisting of </span><em><span>shadows</span></em><span>, </span><em><span>midtones</span></em><span>, and </span><em><span>highlights</span></em><span> (just like with </span><em><span>color wheel</span></em><span>)</span></p></li><li><p><span>for luminance curve:</span></p><ul><li><span>adjusting the ends of the line, will reduce (or increase) the overall contrast of an image</span></li><li><span>lifting (or lowering) the middle of the line, will brighten (or darken) midtone pixels</span></li></ul></li><li><p><span>for color curves:</span></p><ul><li><span>one end of the scale has more of the color, while the other end has the matching secondary color (i.e., </span><em><span>cyan</span></em><span> for </span><em><span>red</span></em><span>, </span><em><span>magenta</span></em><span> for </span><em><span>green</span></em><span>, and </span><em><span>yellow</span></em><span> for </span><em><span>blue</span></em><span>)</span></li></ul></li></ul><p style="text-align:center;"><img src="data/curves.png" width="600" title="curves"></p><h3><a name="66-levels" class="md-header-anchor"></a><span>6.6. Levels</span></h3><p><strong><span>Levels</span></strong><span> allow adjust the maximum and minimum luminance of an image, i.e., its contrast range.</span></p><ul><li><span>similar results can be achieved with </span><em><span>curves control</span></em></li><li><span>useful for fast conversion between RGB and YUV standards (</span><code>0 - 255</code><span> to </span><code>16 - 235</code><span> and vice versa)</span></li><li><span>after upper and lower limits change, midtones should be adjusted too (to make the transformation feel more natural for the eye)</span></li></ul><p style="text-align:center;"><img src="data/levels.png" width="600" title="levels"></p><p>&nbsp;</p></div>
+</body>
+</html>

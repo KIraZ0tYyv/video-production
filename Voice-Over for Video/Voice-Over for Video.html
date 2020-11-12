@@ -1,0 +1,685 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>Voice-Over for Video</title><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+svg[id^="mermaidChart"] { line-height: 1em; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+
+
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Source Sans Pro SemiBold'), local('SourceSansPro-SemiBold'), url('file:////home/user/.config/Typora/themes/vue/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlxdu.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}@import '';
+
+:root {
+    --side-bar-bg-color: #fff;
+    --control-text-color: #777;
+    --font-sans-serif: 'Ubuntu', 'Source Sans Pro', sans-serif !important;
+    --font-monospace: 'Fira Code', 'Roboto Mono', monospace !important;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-sans-serif);
+    color: #34495e;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6rem;
+    letter-spacing: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+#write {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 20px 30px 100px;
+}
+
+#write p {
+    line-height: 1.6rem;
+    word-spacing: .05rem;
+}
+
+#write ol li {
+    padding-left: 0.5rem;
+}
+
+#write > ul:first-child,
+#write > ol:first-child {
+    margin-top: 30px;
+}
+
+body > *:first-child {
+    margin-top: 0 !important;
+}
+
+body > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+a {
+    color: #42b983;
+    font-weight: 600;
+    padding: 0 2px;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+
+h1 tt,
+h1 code {
+    font-size: inherit !important;
+}
+
+h2 tt,
+h2 code {
+    font-size: inherit !important;
+}
+
+h3 tt,
+h3 code {
+    font-size: inherit !important;
+}
+
+h4 tt,
+h4 code {
+    font-size: inherit !important;
+}
+
+h5 tt,
+h5 code {
+    font-size: inherit !important;
+}
+
+h6 tt,
+h6 code {
+    font-size: inherit !important;
+}
+
+h2 a,
+h3 a {
+    color: #34495e;
+}
+
+h1 {
+    padding-bottom: .4rem;
+    font-size: 2.2rem;
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: 1.75rem;
+    line-height: 1.225;
+    margin: 35px 0 15px;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #ddd;
+}
+
+h3 {
+    font-size: 1.4rem;
+    line-height: 1.43;
+    margin: 20px 0 7px;
+}
+
+h4 {
+    font-size: 1.2rem;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: #777;
+}
+
+p,
+blockquote,
+ul,
+ol,
+dl,
+table {
+    margin: 0.8em 0;
+}
+
+li > ol,
+li > ul {
+    margin: 0 0;
+}
+
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+body > h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+body > h1:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+body > h3:first-child,
+body > h4:first-child,
+body > h5:first-child,
+body > h6:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+a:first-child h1,
+a:first-child h2,
+a:first-child h3,
+a:first-child h4,
+a:first-child h5,
+a:first-child h6 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+h1 p,
+h2 p,
+h3 p,
+h4 p,
+h5 p,
+h6 p {
+    margin-top: 0;
+}
+
+li p.first {
+    display: inline-block;
+}
+
+ul,
+ol {
+    padding-left: 30px;
+}
+
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+
+blockquote {
+    border-left: 4px solid #42b983;
+    padding: 10px 15px;
+    color: #777;
+    background-color: rgba(66, 185, 131, .1);
+}
+
+table {
+    padding: 0;
+    word-break: initial;
+}
+
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+
+table tr:nth-child(2n),
+thead {
+    background-color: #fafafa;
+}
+
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+
+table tr td {
+    border: 1px solid #dfe2e5;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+#write strong {
+    padding: 0 1px;
+}
+
+#write em {
+    padding: 0 5px 0 2px;
+}
+
+#write table thead th {
+    background-color: #f2f2f2;
+}
+
+#write .CodeMirror-gutters {
+    border-right: none;
+}
+
+#write .md-fences {
+    border: 1px solid #F4F4F4;
+    -webkit-font-smoothing: initial;
+    margin: 0.8rem 0 !important;
+    padding: 0.3rem 0 !important;
+    line-height: 1.43rem;
+    background-color: #F8F8F8 !important;
+    border-radius: 2px;
+    font-family: var(--font-monospace);
+    font-size: 0.85rem;
+    word-wrap: normal;
+}
+
+#write .CodeMirror-wrap .CodeMirror-code pre {
+    padding-left: 12px;
+}
+
+#write code, tt {
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-family: var(--font-monospace);
+    font-size: 0.92rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+}
+
+tt {
+    margin: 0 2px;
+}
+
+#write .md-footnote {
+    background-color: #f8f8f8;
+    color: #e96900;
+}
+
+/* heighlight. */
+#write mark {
+    background-color: #EBFFEB;
+    border-radius: 2px;
+    padding: 2px 4px;
+    margin: 0 2px;
+    color: #222;
+    font-weight: 500;
+}
+
+#write del {
+    padding: 1px 2px;
+}
+
+.cm-s-inner .cm-link,
+.cm-s-inner.cm-link {
+    color: #22a2c9;
+}
+
+.cm-s-inner .cm-string {
+    color: #22a2c9;
+}
+
+.md-task-list-item > input {
+    margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+    background-color: #f8f8f8;
+}
+
+#write pre.md-meta-block {
+    padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block > .code-tooltip {
+    bottom: .375rem;
+}
+
+#write > h3.md-focus:before {
+    left: -1.5625rem;
+    top: .375rem;
+}
+
+#write > h4.md-focus:before {
+    left: -1.5625rem;
+    top: .285714286rem;
+}
+
+#write > h5.md-focus:before {
+    left: -1.5625rem;
+    top: .285714286rem;
+}
+
+#write > h6.md-focus:before {
+    left: -1.5625rem;
+    top: .285714286rem;
+}
+
+.md-image > .md-meta {
+    border-radius: 3px;
+    font-family: var(--font-monospace);
+    padding: 2px 0 0 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: inherit;
+}
+
+.md-toc {
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#md-notification:before {
+    top: 10px;
+}
+
+/** focus mode */
+
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header,
+.context-menu,
+.megamenu-content,
+footer {
+    font-family: var(--font-sans-serif);
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state {
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+
+
+</style>
+</head>
+<body class='typora-export'>
+<div id='write'  class=''><hr /><h1><a name="voice-over-for-video-and-animation" class="md-header-anchor"></a><span>Voice-Over for Video and Animation</span></h1><p><strong><span>Source</span></strong><span>: </span><a href='https://www.linkedin.com/learning/voice-over-for-video-and-animation'><span>Voice-Over for Video and Animation (LinkedIn Learning)</span></a><span> by Mark Simon</span></p><hr /><h2><a name="1-introduction" class="md-header-anchor"></a><span>1. Introduction</span></h2><h3><a name="11-marking-up-a-script" class="md-header-anchor"></a><span>1.1. Marking up a script</span></h3><p><span>It&#39;s useful to mark up a script with visual reminders how to read various lines. There are standards, but markings can be specific to the actor.</span></p><p><span>Common markings and terminology:</span></p><ul><li><strong><span>sides</span></strong><span> (a shortened version of the script with just the lines a particular actor is supposed to read; but can simply highlight lines for a specific character in a regular script)</span></li><li><strong><span>double (or triple) spaced script</span></strong><span> (gives more room for notes)</span></li><li><strong><span>comma and slash</span></strong><span> (to see commas better when reading a script) </span></li><li><strong><span>circles</span></strong><span> (to mark words with unclear pronunciation; can check them, e.g. at </span><a href='http://www.forvo.com' target='_blank' class='url'>www.forvo.com</a><span>)</span></li><li><strong><span>up and down arrow</span></strong><span> (cue to raise or lower a voice/tone/pace)</span></li><li><strong><span>all caps</span></strong><span> (raise a voice; or yell)</span></li><li><strong><span>bold or underline</span></strong><span> (to emphasize particular words)</span></li><li><span>different letters: </span><strong><span>H</span></strong><span> (happy), </span><strong><span>E</span></strong><span> (excited), </span><strong><span>C</span></strong><span> (calm), and other</span></li></ul><p style="text-align:center;"><img src="data/marked up script.png" width="600" title="marked up script"></p><h3><a name="12-character-and-production-info" class="md-header-anchor"></a><span>1.2. Character and production info</span></h3><p><span>The more a voice actor knows about their character and the entire project, the better. This info could be:</span></p><ul><li><span>the idea behind the project and the big picture, character designs, complete descriptions, or even the storyboards</span></li><li><span>character motivation, what happened in a previous scenes, etc.</span></li><li><span>character inspirations from other fiction works</span></li><li><em><span>for producers</span></em><span>: avoid line reading to actors; </span><em><span>for actors</span></em><span>: ask producers questions</span></li></ul><h3><a name="13-industry-standards" class="md-header-anchor"></a><span>1.3. Industry standards</span></h3><p><span>There are certain standards that everyone expects in a voice recording session.</span></p><ul><li><p><span>all phones in airplane mode</span></p></li><li><p><em><span>producer</span></em></p><ul><li><span>should overlap the schedule (some voices tend to go longer, some tend to go shorter)</span></li><li><span>should be prepared with organization</span></li><li><span>can ask a voice actor to do more than one voice in a session</span></li></ul></li><li><p><em><span>actors</span></em></p><ul><li><p><span>should be prepared to wait (if the session before is taking longer than expected; or during the session itself)</span></p></li><li><p><span>should not change the script (but suggestions are okay)</span></p></li><li><p><span>should be patient and professional, they can be asked to read the same line a dozen times</span></p></li><li><p><span>do nots:</span></p><ul><li><span>don&#39;t touch the mic and don&#39;t change its position</span></li><li><span>don&#39;t make noise with script sheets</span></li><li><span>don&#39;t wear noisy clothing (no bracelets or long earrings)</span></li><li><span>don&#39;t apologize for bad takes</span></li></ul></li></ul></li></ul><hr /><h2><a name="2-producing-voice-over" class="md-header-anchor"></a><span>2. Producing voice-over</span></h2><h3><a name="21-preparing-for-a-session" class="md-header-anchor"></a><span>2.1. Preparing for a session</span></h3><p><span>Tips for </span><em><span>producers</span></em><span>:</span></p><ul><li><span>deliver sides, character images, and character description to actors (to help them get into the role)</span></li><li><span>note in the script whatever other sounds and noises are needed from the actors</span></li><li><span>prior to a session, remind actors of their upcoming session and call times</span></li><li><span>assistant might be very helpful</span></li><li><span>get to the studio early and make sure everything&#39;s prepped properly</span></li><li><span>bring extra copies of the script just in case</span></li><li><span>if there are </span><em><span>executives</span></em><span> on a set, only the producer should interact with them (not to mess up the working process)</span></li></ul><h3><a name="22-finding-vo-talent" class="md-header-anchor"></a><span>2.2. Finding VO talent</span></h3><p><span>There are many options for finding voice-over actors:</span></p><ul><li><span>web sites with voice actors for hire (plus often actors have their own sites), e.g. </span><a href='http://www.voices.com' target='_blank' class='url'>www.voices.com</a><span>, </span><a href='http://www.voice123.com' target='_blank' class='url'>www.voice123.com</a><span>, </span><a href='http://www.voicebunny.com' target='_blank' class='url'>www.voicebunny.com</a><span>, </span><a href='http://www.thevoicerealm.com' target='_blank' class='url'>www.thevoicerealm.com</a><span>, </span><a href='http://www.voiver.com' target='_blank' class='url'>www.voiver.com</a><span> and </span><a href='http://www.productionhub.com' target='_blank' class='url'>www.productionhub.com</a></li><li><span>delegate responsibilities to </span><em><span>talent agencies</span></em><span> or </span><em><span>casting agents</span></em></li><li><span>ask other actors for suggestions</span></li><li><span>local improv comedy shows</span></li></ul><h3><a name="23-hiring-vo-talent" class="md-header-anchor"></a><span>2.3. Hiring VO talent</span></h3><p><span>The right you pay for each voice actor will depend on:</span></p><ul><li><span>the type of a project</span></li><li><span>experience of an actor</span></li><li><span>how many people are likely to see the project</span></li><li><span>how many characters actor needs to perform</span></li><li><span>is this a lead or side character</span></li><li><span>how many lines there are for each character</span></li><li><span>how many hours a session is expected to last</span></li><li><span>if it&#39;s commercial, how big is the advertiser, how long it&#39;s going to air, etc.</span></li></ul><h3><a name="24-table-read" class="md-header-anchor"></a><span>2.4. Table read</span></h3><p><span>The </span><strong><span>table read</span></strong><span> is an informal reading of a script. The goal is to make sure the script is as strong as possible. Tip: the producer (or director) should not be one of the voices, they should listen and make notes.</span></p><p style="text-align:center;"><img src="data/table read.jpg" width="500" title="table read"></p><ul><li><span>if someone stumbles with a line during the readings, maybe it needs to be edited</span></li><li><span>sometimes actors can come up with great extra material</span></li><li><span>producer can get some new ideas during read-through</span></li><li><span>at the end of the reading actors can share their thoughts and give some suggestions</span></li></ul><h3><a name="25-long-distance-voice-recording" class="md-header-anchor"></a><span>2.5. Long-distance voice recording</span></h3><p><span>Today many professional voice-actors have small recording studios at home. So producers can direct them over the phone or internet.</span></p><p><span>Video call are preferable to only audio calls:</span></p><ul><li><span>director can help more with acting and suggestions</span></li><li><span>it&#39;s also easier for actors because they can see the feedback</span></li><li><span>it can also be helpful to be on the line with the engineer (if it&#39;s not a home studio)</span></li></ul><h3><a name="26-notes-for-voice-talent" class="md-header-anchor"></a><span>2.6. Notes for voice talent</span></h3><p><span>Even the best actors can sometimes fall into traps of reading a line the same way over and over. Few tips and tricks to get actors to vary their line readings.</span></p><ul><li><span>only the director (or producer) should ever give notes to the actors directly (others, e.g. clients or executives, only through the director)</span></li><li><span>producer should start a session by explaining to the actor who their character is, what they feel, and what&#39;s happening to them</span></li><li><span>director can watch their actors, it&#39;s easier to direct them this way, e.g. ask them to smile, physically act out something, stand or sit, emphasize specific words, can also suggest a famous character to emulate</span></li><li><span>when recording a recurring voice that actor has done before, ask audio engineer to play back a previous recording for reference</span></li><li><strong><span>don&#39;t give line reading to actors</span></strong><span> (unless actor asks for them, or they are amateurs)</span></li><li><span>if an actor is having a hard time with a specific line, move on and return to it later</span></li><li><span>director could push actors for big emotions and expressions, should not be afraid to tell them exactly what is needed</span></li></ul><h3><a name="27-recording-multiple-actors" class="md-header-anchor"></a><span>2.7. Recording multiple actors</span></h3><p><span>For general dialogue scenes, it&#39;s faster and easier to record one voice at a time (singular voices are easy to edit). But sometimes it&#39;s a good idea to record multiple actors at the same time, this can give awesome character interactions.</span></p><ul><li><span>humor is all about timing, and good comic actors can feed off of one another and give a script the perfect timing</span></li><li><span>emotions can be hard to realistically portray in a sterile environment</span></li><li><span>multiple actors recording at once will often give overlapping dialogues, so they can&#39;t be edited that much</span></li></ul><h3><a name="28-keep-takes" class="md-header-anchor"></a><span>2.8. Keep takes</span></h3><p><span>During a session, director need to be able to keep track of all the </span><em><span>keep takes</span></em><span>. When the take is good, assistant and/or sound engineer should mark it.</span></p><ul><li><span>sound engineer will usually save and deliver just the keep takes (but director could tell them to save everything)</span></li><li><span>can mark keep takes on the script, but can also write a separate list for this purpose</span></li><li><span>there could be multiple good takes that director would want to save</span></li></ul><p style="text-align:center;"><img src="data/keep takes.png" width="600" title="keep takes"></p><h3><a name="29-organizing-audio-files" class="md-header-anchor"></a><span>2.9. Organizing audio files</span></h3><p><span>Proper naming of files can save a huge amount of time in the edit suite.</span></p><ul><li><span>when a script is ready for recording, number the lines of dialogue, so during the recording audio files are named according to the dialogue line numbers</span></li><li><span>after a dialogue line number, you can add the character name and a word or two from the line</span></li><li><span>for extra sounds between dialogue lines, number those additionally with letters, e.g. </span><code>22A</code><span> and </span><code>22B</code></li></ul><p style="text-align:center;"><img src="data/organized files.png" width="550" title="organized files"></p><hr /><h2><a name="3-professional-voice-over" class="md-header-anchor"></a><span>3. Professional voice-over</span></h2><h3><a name="31-voice-artists" class="md-header-anchor"></a><span>3.1. Voice artists</span></h3><p><span>Tips for voice artists (business):</span></p><ul><li><span>get training (acting classes, voice acting classes) and practice (improv in comedy shows, live acting, VO sessions)</span></li><li><span>continuously update your demo reel and your website (and only include your best work there)</span></li><li><span>to get started, offer your services to friends or local businesses (to help build a resume)</span></li><li><span>submit yourself to voice actor websites</span></li><li><span>join or participate in local advertising groups and associations (to make connections)</span></li></ul><p><span>Tips for voice artists (work):</span></p><ul><li><span>never change the script (but suggestions are okay)</span></li><li><span>watch your plosives (P&#39;s and T&#39;s)</span></li><li><span>don&#39;t touch the mic and don&#39;t change its position</span></li><li><span>don&#39;t breathe directly into the mic</span></li><li><span>protect your voice (no parties and yelling the night before a session)</span></li><li><span>drink warm liquids (not cold ones)</span></li><li><span>write down tips how to get into the character (to use them later if needed)</span></li></ul><h3><a name="32-preparing-for-a-session" class="md-header-anchor"></a><span>3.2. Preparing for a session</span></h3><p><span>The better prepared you are for a voiceover session the more likely you are to be asked to work again.</span></p><ul><li><span>ask for the sides and other information about your character</span></li><li><span>read the entire script (not only your lines)</span></li><li><span>don&#39;t damage your voice the night before a session</span></li><li><span>warm up your voice and drink warm fluids</span></li><li><span>be prepared to wait</span></li></ul><p style="text-align:center;"><img src="data/studio.jpg" width="500" title="studio"></p><h3><a name="33-work-with-a-director" class="md-header-anchor"></a><span>3.3. Work with a director</span></h3><ul><li><p><span>if you struggle with a particular line, suggest to move on and rerecord it later (or ask for line reading in worst case scenario)</span></p></li><li><p><span>if you&#39;re getting the same note from the director, try going in different direction</span></p></li><li><p><span>feel free to experiment and really push your voice (unless everyone&#39;s happy with a current voice)</span></p></li><li><p><span>give a director three slight variation with every take, they will give feedback, and then you will try again</span></p></li><li><p><span>things a director might ask for:</span></p><ul><li><span>to be quicker, pick up the pace (or to be slower and don&#39;t rush it)</span></li><li><span>change timing in general</span></li><li><span>add energy</span></li><li><span>emphasize specific words</span></li><li><span>to be more angry or tense</span></li></ul></li></ul><h3><a name="34-tricks-for-better-line-readings" class="md-header-anchor"></a><span>3.4. Tricks for better line readings</span></h3><p><span>It&#39;s important to sound natural, some tips to achive it:</span></p><ul><li><span>make it sound like you&#39;re talking to a friend (e.g. maybe talk to someone on the other side of the soundproof glass)</span></li><li><span>read through the script aloud a number of times before a session</span></li><li><span>practice reading from the teleprompter (there are many mobile apps)</span></li><li><span>if you find a word or a line difficult, you can always suggest a word change</span></li><li><span>record yourself and listen back to it (gives a new perspective)</span></li></ul><p><span>Ways to vary a line reading:</span></p><ul><li><p><span>physical:</span></p><ul><li><span>physically act out emotions (e.g. jump around)</span></li><li><span>face gestures</span></li><li><span>stretch out or compress your neck</span></li><li><span>sitting vs standing</span></li></ul></li><li><p><span>warm drinks smooth the vocal cords (to remove raspiness), cold drinks tighten the vocal cords</span></p></li><li><p><span>emulate famous character</span></p></li><li><p><span>don&#39;t afraid to speak loudly</span></p></li><li><p><span>think of something emotional and let that affect your read</span></p></li></ul><h3><a name="35-voice-demos-and-website" class="md-header-anchor"></a><span>3.5. Voice demos and website</span></h3><p><span>The best voice demos have a number of varied voices all presented in very short segments. Just a few seconds of each voice is enough for a producer or director to know if they like it.</span></p><ul><li><span>in demos move on quickly (so people don&#39;t get bored)</span></li><li><span>in the beginning of your demo reel, state your name</span></li><li><span>can add video demos too</span></li><li><span>mention if you can record in your own studio or not (long distance work)</span></li><li><span>make it easy to contact you</span></li></ul><hr /><h2><a name="4-voice-over-for-personal-projects" class="md-header-anchor"></a><span>4. Voice-over for personal projects</span></h2><h3><a name="41-personal-voice-recordings" class="md-header-anchor"></a><span>4.1. Personal voice recordings</span></h3><p><span>You&#39;re always judged by every aspect of production.</span></p><ul><li><span>invest in decent sound quality</span></li><li><span>know the basics of editing and enhancing audio</span></li><li><span>treat yourself in a recording session the same way you would a voice actor, i.e. push yourself and record multiple takes</span></li><li><span>can use teleprompter</span></li><li><span>same advice as for professional voice over: physically act out emotions, speak loudly, don&#39;t be shy, etc.</span></li></ul><h3><a name="42-sound-quality" class="md-header-anchor"></a><span>4.2. Sound quality</span></h3><p><span>There are a few tricks to getting better sound for your own personal projects.</span></p><ul><li><span>try to create quite environment (cover doors and walls with sound-baffling materials, e.g. foam panels or just a soft fabric hanging over a door or a wall)</span></li><li><span>can use small vocal reflection baffle</span></li><li><span>invest in a desent mic (prefer cardioid mics) and other audio equipment (shock mount for a mic, pop-filter, headphones, etc.)</span></li><li><span>can also use lavalier mics</span></li><li><span>turn off anything near you that could make noises (e.g. not used computers)</span></li><li><span>can try to remove background noise with audio restoration software (e.g. Ozone RX)</span></li></ul><p style="text-align:center;"><img src="data/reflection buffle.jpg" width="400" title="reflection buffle"></p><hr /><h2><a name="5-delivery" class="md-header-anchor"></a><span>5. Delivery</span></h2><h3><a name="51-file-delivery" class="md-header-anchor"></a><span>5.1. File delivery</span></h3><p><span>Delivery is the last memory a client will have of working with you.</span></p><ul><li><span>don&#39;t delay file delivery</span></li><li><span>name files according to the client request</span></li><li><span>make sure you have access to some reliable file transfer service</span></li><li><span>when sending files, mention about that to a client via text</span></li></ul><h3><a name="52-invoice" class="md-header-anchor"></a><span>5.2. Invoice</span></h3><ul><li><span>submit your invoice right away, don&#39;t delay it</span></li><li><span>make sure all overages and changes are accounted for (don&#39;t want to surprise a client with an unexpected bill)</span></li><li><span>you have no power to renegotiate once the work is done</span></li><li><span>if you offer a discount, charge the full rate on your invoice and then subtract the given discount</span></li></ul><h3><a name="53-back-up" class="md-header-anchor"></a><span>5.3. Back up</span></h3><p><span>Back up options:</span></p><ul><li><span>cloud back up</span></li><li><span>local back up system</span></li></ul><p>&nbsp;</p></div>
+</body>
+</html>

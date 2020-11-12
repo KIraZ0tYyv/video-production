@@ -13,6 +13,7 @@
     - [1.5. Keyboard shortcuts](#15-keyboard-shortcuts)
 - [2. Media page](#2-media-page)
     - [2.1. Project frame rate](#21-project-frame-rate)
+    - [2.2. Importing media](#22-importing-media)
     - [2.3. Organizing media](#23-organizing-media)
     - [2.4. Reviewing and marking clips](#24-reviewing-and-marking-clips)
     - [2.5. Metadata and keywords](#25-metadata-and-keywords)
@@ -271,11 +272,13 @@ Before you import any clips into a project, you need to set the *project frame r
 <p style="text-align:center;"><img src="data/project frame rate.png" width="350" title="project frame rate"></p>
 
 - if there's a mismatch between the very first clip dragged into the `Media Pool` and the project frame rate, you'll see a dialogue box, which will ask if you want to change the current project frame rate
-- in addition to the *timeline frame rate* there is a *video monitoring frame rate*, which can be configured independently (so you can monitrrectootage externally at), but it does rate)
-- can render a
+- in addition to the *timeline frame rate* there is a *video monitoring frame rate*, which can be configured independently (so you can monitor you footage externally at another frame rate)
+- can render a project at any frame rate, but it's better if the output frame rate matches your project frame rate
 
- There are
 
+### 2.2. Importing media
+
+There are several ways of adding media to the `Media Pool`:
 
 1. **Windows Explorer**
     - drag and drop individual clips or whole folders
@@ -358,13 +361,13 @@ The *Cut Page* is designed to streamline the editing process. The main goal is t
 - *Cut Page* gives an instant access to some project settings (top right of the viewer): *frame size*, *color correction bypass*, *mute audio*, and *quick export* button.
 - double-click on a clip from the `Media Pool` (top left) to put it into the viewer, and drag it down to put it into a project timeline
 - there are two timelines in the *Cut Page*:
-    <p style="text-align:center;"><img src="data/cut - timelines.png" width="700" title="timelines"></p>
     - *top timeline*
         - always zoomed out at 100% (for quick navigation)
         - when you drag the ruler, you're moving the playhead around
     - *bottom timeline*
         - always zoomed in
         - when you drag the ruler, you're sliding the timeline around, but this behavior can be changed with `Free/Lock Playhead` button (to the left of the top timeline)
+    <p style="text-align:center;"><img src="data/cut - timelines.png" width="700" title="timelines"></p>
 - the first clip dragged into a timeline starts at `01:00:00:00` by default (can be changed by modifying the timeline start time code in the *Edit Page*)
 - when new clips are added, they automatically snap to the end of a timeline, i.e. not allowing to create empty gaps (unlike in the *Edit Page*)
 
