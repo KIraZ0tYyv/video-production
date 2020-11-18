@@ -29,9 +29,10 @@
     - [4.1. Viewers](#41-viewers)
     - [4.2. Timeline](#42-timeline)
     - [4.3. Editing](#43-editing)
-    - [4.4. Inspector](#44-inspector)
-    - [4.5. Keyframing](#45-keyframing)
-    - [4.6. Speed ramping](#46-speed-ramping)
+    - [4.4. Tracks](#44-tracks)
+    - [4.5. Inspector](#45-inspector)
+    - [4.6. Keyframing](#46-keyframing)
+    - [4.7. Speed ramping](#47-speed-ramping)
 - [5. Color Page](#5-color-page)
     - [5.1. Overview](#51-overview)
     - [5.2. Color wheels \(overview\)](#52-color-wheels-overview)
@@ -190,6 +191,9 @@ There are also some additional preferences and settings:
 - reset UI: `Workspace` → `Reset UI layout`
 - UI presets: `Workspace` → `Layout Presets` → `Save Layout as Preset...`/`Import Layout as Preset...`
 - to minimize *Pages Strip*: RMB → `Show Icons Only`
+- if there are performance issues try:
+    - `Playback` → `Proxy Mode` → `Half/Quarter Resolution`
+    - `Playback` → `Render Cache` → `smart`
 
 
 ### 1.5. Keyboard shortcuts
@@ -235,13 +239,16 @@ Can create, export, and import keyboard shortcuts layouts.
 | Shortcut                                                     | Action                                                   |
 | ------------------------------------------------------------ | -------------------------------------------------------- |
 | <kbd>↑</kbd> / <kbd>↓</kbd>                                  | go to the next/previous edit                             |
-| <kbd>Ctrl</kbd> + <kbd>=</kbd>/<kbd>-</kbd>                  | zoom in/out                                              |
+| <kbd>Alt</kbd> + 🖱wheel (timeline top)                       | scroll through timeline                                  |
+| <kbd>Alt</kbd> + 🖱wheel                                      | zoom in/out                                              |
 | <kbd>Shift</kbd> + <kbd>Z</kbd>                              | zoom to the entire timeline view (press again to unzoom) |
 | <kbd>Backspace</kbd>                                         | remove selected clips or area                            |
 | <kbd>Delete</kbd>                                            | remove selected clips or area (with empty gaps)          |
+| <kbd>N</kbd>                                                 | snapping on/off                                          |
 | <kbd>E</kbd>                                                 | extend selected edit point to the current time indicator |
 | <kbd>A</kbd>                                                 | selection mode                                           |
 | <kbd>T</kbd>                                                 | trim mode                                                |
+| <kbd>B</kbd>                                                 | blade mode                                               |
 | <kbd>F9</kbd>/<kbd>F10</kbd>/<kbd>F11</kbd>                  | insert/overwrite/replace clip                            |
 | <kbd>F12</kbd>/<kbd>Shift</kbd> + <kbd>F12</kbd>             | place on top/append to end                               |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>,</kbd>/<kbd>.</kbd> | swap selected clip with the previous/next one            |
@@ -255,7 +262,10 @@ Can create, export, and import keyboard shortcuts layouts.
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> | show/hide waveforms window                      |
 | <kbd>Shift</kbd> + <kbd>H</kbd>                   | toggle on/off highlights mode (viewer)          |
 | <kbd>Shift</kbd> + <kbd>~</kbd>                   | toggle on/off screen widget (viewer)            |
-| <kbd>Alt</kbd> + <kbd>S</kbd>                     | add a node to the chain                         |
+| <kbd>Alt</kbd> + <kbd>S</kbd>                     | add a serial node to the chain                  |
+| <kbd>Alt</kbd> + <kbd>P</kbd>                     | add a parallel node to the chain                |
+| <kbd>Alt</kbd> + <kbd>L</kbd>                     | add a layered node to the chain                 |
+| <kbd>Ctrl</kbd> + <kbd>D</kbd>                    | toggle node on/off                              |
 | <kbd>E</kbd>                                      | extract the node from the chain                 |
 | <kbd>Ctrl</kbd> + <kbd>C</kbd>                    | copy color corrections from a node              |
 | <kbd>Ctrl</kbd> + <kbd>V</kbd>                    | paste color corrections to a node               |
@@ -475,12 +485,13 @@ Despite being designed for quick editing, *Cut Page* offers many editing tools:
 
 ### 4.2. Timeline
 
-*Edit Page* uses a single timeline.
+*Edit Page* uses a single timeline view by default.
 
 - use shortcuts to zoom and navigate; adjust audio and video tracks height and appearance with `Timeline View Options` (top left corner of the timeline)
     <p style="text-align:center;"><img src="data/edit - timeline view options.png" width="220" title="timeline view options"></p>
-- can drag clips freely, i.e. *Edit Page* allows empty gaps 
-- can move video clips independently of audio (when `Linked Selection` is off)
+- can use multiple timelines (*timeline tabs* or stack them on each other)
+- can drag clips freely, i.e. *Edit Page* allows empty gaps (unlike the *Cut Page*)
+- can move video clips independently of audio (<kbd>Alt</kbd> + click or when `Linked Selection` is off)
     <p style="text-align:center;"><img src="data/edit - linked selection.png" width="400" title="linked selection"></p>
 - adjust clips to each other by moving them using shortcuts, e.g. `+22 Enter` will move selected clip 22 frames forward (see the top right corner of the *timeline viewer*)
 - control audio for tracks with `Mixer` (button above the *timeline viewer*)
@@ -493,7 +504,7 @@ Despite being designed for quick editing, *Cut Page* offers many editing tools:
 
 *Edit Page* provides more advanced editing tools comparing to the *Cut Page*.
 
-- can *extend*, *crop*, *drag*, *adjust* and *trim* clips (`Selection Mode`, `Trim Edit Mode`, and other edit modes)
+- can *copy* (<kbd>Alt</kbd> + drag), *extend*, *crop*, *drag*, *adjust* and *trim* clips (`Selection Mode`, `Trim Edit Mode`, and other edit modes)
     <p style="text-align:center;"><img src="data/edit - edit modes.png" width="150" title="edit modes"></p>
 - can *slip edit* (select top part of a clip and drag), i.e. the duration of a clip and in and out points are unchanged, the content of a clip is changing
     <p style="text-align:center;"><img src="data/edit - slip edit.png" width="300" title="slip edit"></p>
@@ -501,37 +512,48 @@ Despite being designed for quick editing, *Cut Page* offers many editing tools:
     <p style="text-align:center;"><img src="data/edit - slice edit.png" width="300" title="slice edit"></p>
 - drag a clip from the *source viewer* to the *timeline viewer* to see different options for inserting a clip into a timeline: `Insert`, `Overwrite`, `Replace`, `Fit to Fill`, `Place on Top`, `Append at End`, and `Ripple Overwrite` (can also use shortcuts)
     <p style="text-align:center;"><img src="data/edit - insert tools.png" width="400" title="insert clips"></p>
-- can *swap* clips with each other (see shortcuts)
-- *track selectors* (orange box around the track) determine the tracks where new clips are inserted
-- turn off the *auto selector* for a particular track to ignore the edits for clips on it (e.g. when swaping clips and triming)
-    <p style="text-align:center;"><img src="data/edit - autoselector.png" width="350" title="autoselector"></p>
+- can *swap* and *shuffle* clips with each other (see shortcuts or <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + drag)
 
 
-### 4.4. Inspector
+### 4.4. Tracks
+
+- can use track color coding (RMB and `Change Track Color`)
+- can use markers to make notes (e.g. for where to place SFX)
+- track buttons:
+    - *lock* to make tracks uneditable
+    - turn off the *auto selector* for a particular track to ignore the edits for clips on it (e.g. when swaping clips and triming, useful for music backtracks)
+    - *video* button for video tracks
+    - *solo* and *mute* buttons for audio tracks
+    - *track selectors* (orange box around the track) determine the tracks where new clips are inserted
+    <p style="text-align:center;"><img src="data/edit - track buttons.png" width="200" title="track buttons"></p>
+
+
+### 4.5. Inspector
 
 - provides same video editing tools as `Tools` button from the *Cut Page* (`Transform`, `Dynamic Zoom`, `Stabilization`, etc.)
     <p style="text-align:center;"><img src="data/edit - inspector.png" width="350" title="inspector"></p>
 - provides options for editing audio clips (`Volume`, `Pan`, `Pitch`, and `EQ`)
 - to copy and paste `Inspector` attributes from one clip to another use shortcuts
-- can add visual FX to clips: choose an effect from the `Effects Library` (top left corner) and drag it to a particular clip in a timeline; adjust the settings in the `Inspector`
+- can add visual FX to clips (e.g. *dissolves* and *crossfades*): choose an effect from the `Effects Library` (top left corner) and drag it to a particular clip in a timeline; adjust the settings in the `Inspector` (can save customized versions as presets)
     <p style="text-align:center;"><img src="data/edit - openfx.png" width="350" title="visual effects"></p>
 
 
-### 4.5. Keyframing
+### 4.6. Keyframing
 
 Frequently in the edit, you want to *keyframe* adjustments that you're making in the `Inspector` (start one way and finish another).
 
-- one example of this is manual version of the *dynamic zoom*, to create the same effect, use `Transform` tool, but set *keyframes* at particular moments of a clip (in the `Inspector`)
+- for example, to create the same effect as *dynamic zoom*, use `Transform` tool, but set *keyframes* at particular moments of a clip (in the `Inspector`)
     <p style="text-align:center;"><img src="data/edit - keyframes.png" width="350" title="keyframes"></p>
 - can adjust *keyframe* points with *keyframe tool* and *keyframe editor* (icons at the bottom right corner of a clip in a timeline)
     <p style="text-align:center;"><img src="data/edit - keyframe editor.png" width="350" title="keyframe editor"></p>
 
 
-### 4.6. Speed ramping
+### 4.7. Speed ramping
 
 *Resolve* allows to speed ramp the clips in the project (speed them up or slow them down).
 
-- RMB on a clip and `Retime Controls` to make adjustments: add *speed points*, change speed, freeze frames, etc.
+- RMB on a clip and `Change Clip Speed...` for simple manipulations
+- RMB on a clip and `Retime Controls` to make more precise adjustments: add *speed points*, change speed, freeze frames, etc.
 - RMB on a clip and `Retime Curve` for even more controls
 - to delete all the *speed points* from a clip go back to the `Retime Controls`, click on a clip, and choose `Reset Clip` option
     <p style="text-align:center;"><img src="data/edit - retime controls.png" width="500" title="retime controls"></p>
@@ -608,10 +630,19 @@ Frequently in the edit, you want to *keyframe* adjustments that you're making in
     - by adjusting the contrast of *gamma* and *lift* wheels make sure nothing is clipped off
     - looking at the viewer, adjust the overall brightness of the shot using the contrast slide of the *gain* wheel
 2. **Color adjustments**
-    - looking at the *RGB parade*, balance the colors (if needed)
+    - looking at the *RGB parade*, balance the colors (if needed) manually or using *white balance eyedropper* (click on a white object in a shot)
     - adjust *lift* and *gain* first, then *gamma* (because of overlaps between the wheels)
     - also use the *vectorscope* in the mids mode for monitoring if there is a color bias (white blob should be centered)
-    - can additionally adjust *temp* (moves between blue and red) and *tint* (moves between magenta and green) from the `2` below the color wheels
+    - can additionally adjust (`1` and `2` tabs below the wheels):
+        - `Contrast` to stretch the contrast range
+        - `Pivot` to stretch the contrast range evenly
+        - `Hue` to rotate the hue
+        - `Temp` to adjust the temperature (moves between blue and red)
+        - `Tint` to move between green and magenta
+        - `MD` to add midtones contrast (midtone details)
+        - `Col Boost` to boost saturation of midtones (color boost)
+        - `Shad` and `HL` to adjust the shadows and highlights
+        <p style="text-align:center;"><img src="data/color - wheels bottom.png" width="600" title="color wheels bottom panel"></p>
 3. **Saturation** (from the `1` below the color wheels)
 
 
@@ -625,8 +656,8 @@ To understand better what *color wheels* do lets use them on a *greyscale*:
     - go to the *Edit Page* and create a new timeline (`File` → `New Timeline...`)
     - `Effects Library` → *Generators* → *Grey Scale* and drop it to the timeline
     - RMB on the generator in the timeline and `New Compound Clip...`
-        <p style="text-align:center;"><img src="data/color - greyscale init.png" width="550" title="greyscale init"></p>
-
+    <p style="text-align:center;"><img src="data/color - greyscale init.png" width="550" title="greyscale init"></p>
+    
 2. **Contrast**
     - adjusting the exposure slide of the *gain wheel*
         <p style="text-align:center;"><img src="data/color - greyscale gain.png" width="550" title="greyscale gain"></p>
@@ -634,7 +665,7 @@ To understand better what *color wheels* do lets use them on a *greyscale*:
         <p style="text-align:center;"><img src="data/color - greyscale lift.png" width="550" title="greyscale lift"></p>
     - adjusting the exposure slide of the *gamma wheel*
         <p style="text-align:center;"><img src="data/color - greyscale gamma.png" width="550" title="greyscale gamma"></p>
-
+    
 3. **Color**
     - adjusting the *gain* color wheel
         <p style="text-align:center;"><img src="data/color - greyscale gain color.png" width="550" title="greyscale gain"></p>
@@ -661,9 +692,11 @@ Can also copy color correction settings from one shot to another.
 - method 1:
     1. Select a shot you want to color correct
     2. MMB on the shot you want to copy the settings from
+    3. Adjust the settings using `Split Screen View` of the viewer (top left corner)
 - method 2:
     1. Select a shot you want to color correct
     2. RMB on the shot you want to match (not exactly) the settings from and `Shot Match to this Clip`
+    3. Adjust the settings using `Split Screen View` of the viewer (top left corner)
 
 <p style="text-align:center;"><img src="data/color - copy settings.png" width="250" title="copy settings"></p>
 
@@ -674,16 +707,26 @@ One of the defining characteristics of color correcting in *Resolve* is working 
 
 <p style="text-align:center;"><img src="data/color - node tree.png" width="400" title="node tree"></p>
 
-- can *drag* the nodes around, *extract* them (see shortcuts), and *place* them between other nodes
+#### Basic features
+
 - add a new node: RMB and `Add Node` → `Add Serial` (also see shortcuts)
 - delete a node by selecting it and pressing <kbd>Delete</kbd>
 - copy and paste node settings (see shortcuts)
 - bypass a node by clicking on its number (bottom left corner)
 - reset a node corrections with RMB and `Reset Node Grade`
+
+#### Additional features
+
+- can *label* nodes, *drag* them around, *extract* them (see shortcuts), and *place* them between other nodes
 - `Color` → `Reset`:
     - `Selected Node Grade`: reset the corrections in a selected node
     - `Grades but Keep Nodes`: reset the entire node tree, but keep structure
     - `All Grades and Nodes`: reset the entire node tree
+- can use *shared nodes* (node settings are shared between different clips)
+- can apply the same corrections for a group of clips:
+    - select clips, RMB and `Add Into a New Group`
+    - select `Group Post-Clip` option in the `Node Tree` (top right)
+    - apply corrections
 
 
 ### 5.8. Gallery
@@ -752,7 +795,7 @@ Useful if you want to target saturation level of specifically colored parts of a
 
 Useful if you want to adjust a saturation of parts of a shot with a particular saturation value (e.g. change the saturation in the shadows).
 
-- add a control point (e.g. in shadows)
+- add a control point (e.g. in the shadows)
     <p style="text-align:center;"><img src="data/color - sat vs sat I.png" width="500" title="sat vs sat I"></p>
 - adjust the saturation
     <p style="text-align:center;"><img src="data/color - sat vs sat II.png" width="500" title="sat vs sat II"></p>
@@ -780,7 +823,7 @@ Used to physically isolate parts of the shot (to modify only them).
 <p style="text-align:center;"><img src="data/color - power window.png" width="500" title="power window"></p>
 
 - several pre-built selection shapes: *linear*, *circle*, *polygon*, *curve*, and *gradient*
-- select *Power Window* (bottom left corner of the viewer) to see on-screen selection widgets (but can also use the *highlights mode*)
+- select *Power Window* (bottom left corner of the viewer) to see on-screen selection widget (but can also use the *highlights mode*)
 - can adjust the shape, softness controls, and invert the selection
 - usual workflow:
     - isolate the object using one of the available selection tools
